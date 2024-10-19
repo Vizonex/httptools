@@ -1,11 +1,9 @@
 from typing import Union, Any
-from array import array 
+from array import array
 from .protocol import HTTPProtocol
 
-
-
 class HttpParser:
-    def __init__(self, protocol:Union[HTTPProtocol, Any]) -> None:
+    def __init__(self, protocol: Union[HTTPProtocol, Any]) -> None:
         """
         protocol -- a Python object with the following methods
         (all optional):
@@ -24,15 +22,18 @@ class HttpParser:
     def get_http_version(self) -> str:
         """Return an HTTP protocol version."""
         ...
+
     def should_keep_alive(self) -> bool:
         """Return ``True`` if keep-alive mode is preferred."""
         ...
+
     def should_upgrade(self) -> bool:
         """Return ``True`` if the parsed request is a valid Upgrade request.
-	    The method exposes a flag set just before on_headers_complete.
-	    Calling this method earlier will only yield `False`."""
+        The method exposes a flag set just before on_headers_complete.
+        Calling this method earlier will only yield `False`."""
         ...
-    def feed_data(self, data:Union[bytes, bytearray, memoryview, array]) -> None:
+
+    def feed_data(self, data: Union[bytes, bytearray, memoryview, array]) -> None:
         """Feed data to the parser.
 
         Will eventually trigger callbacks on the ``protocol``
@@ -43,13 +44,11 @@ class HttpParser:
         set to the offset of the non-HTTP data in ``data``.
         """
 
-
 class HttpRequestParser(HttpParser):
     """Used for parsing http requests from the server's side"""
-    
+
     def get_method(self) -> bytes:
         """Return HTTP request method (GET, HEAD, etc)"""
-
 
 class HttpResponseParser(HttpParser):
     """Used for parsing http requests from the client's side"""
