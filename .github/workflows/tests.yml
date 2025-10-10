@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     env:
@@ -46,5 +46,6 @@ jobs:
       if: steps.release.outputs.version == 0
       run: |
         python -m pip install -U pip setuptools wheel
-        python -m pip install -e .[test]
-        python -m unittest -v tests.suite
+        python -m pip install .[test]
+        cd tests
+        python -m unittest -v
